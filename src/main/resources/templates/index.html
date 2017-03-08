@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment :: head(title = '主页')">
+</head>
+<body>
+<header th:replace="fragment :: header"></header>
+<main>
+    <div class="container">
+        <div id="title">
+            <h5>公考战机</h5>
+            <h5></h5>
+        </div>
+        <div class="row" style="text-align: center">
+                    <div class="card-image">
+                        <img th:src="@{/img/gkzj.jpg}"/>
+                    </div>
+        </div>
+        <div id="infomation">
+            <h6 style="color: #616161">公务员考试题库</h6>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragment :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragment :: head(title = '选择题库')">
+</head>
+<body>
+<header th:replace="fragment :: header"></header>
+<!--/*@thymesVar id="user" type="com.nuptsast.model.User"*/-->
+<main>
+    <div class="container">
+        <div id="title">
+            <h5>请选择题库</h5>
+            <h6 style="color: red; font-size: 12px" th:if="${status != null}" th:text="${status} ? '修改成功' : '此题库暂无内容，请重新选择！'"></h6>
+        </div>
+        <form th:action="@{/profile}" method="post" th:object="${user}">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input disabled="disabled" id="username" type="text" class="validate" th:field="*{username}"/>
+                    <label for="username">用户名</label>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px">
+                <div class="input-field col s12">
+                    <input id="tel" type="tel" disabled="disabled" class="validate" th:field="*{phoneNumber}"
+                           th:classappend="${#fields.hasErrors('phoneNumber')}? invalid"/>
+                    <label for="tel">手机号</label>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px">
+                <div class="input-field col s12">
+                    <select id="targetDepartment" th:field="*{targetDepartment}">
+                        <option value="申论" th:text="申论"></option>
+                        <option value="行测" th:text="行测"></option>
+                    </select>
+                    <label for="targetDepartment">题库</label>
+                </div>
+            </div>
+            <div class="submit">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    <i class="fa fa-check"></i>
+                </button>
+            </div>
+        </form>
+
+    </div>
+</main>
+<footer th:replace="fragment :: footer"></footer>
+</body>
+</html>

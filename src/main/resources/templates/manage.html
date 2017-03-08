@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment :: head(title = '后台管理')">
+</head>
+<body>
+<header th:replace="fragment :: header"></header>
+<main>
+    <div class="row" style="margin-top: 15px">
+        <div class="col s12 m6 container">
+            <!--<form method="post" th:action="@{/importFile}" enctype="multipart/form-data">
+                <a th:href="@{/template.xlsx}">下载模板</a>
+                <input type="file" name="file" class="file-path validate"/>
+                <br/><br/>
+                <input type="submit" name="submit"/>
+            </form>-->
+            <!--/*@thymesVar id="question" type="com.nuptsast.model.Question"*/-->
+            <form method="post" th:object="${question}" th:action="@{/import}" id="submitQuestion" enctype="multipart/form-data">
+                <div class="row" id="addQue">
+                    <div class="input-field col s12">
+                        <h5>新增试题</h5>
+                    </div>
+                    <hr/><br/><br/>
+                    <div class="input-field col s12">
+                        <select id="department">
+                            <option value="申论">申论</option>
+                            <option value="行测">行测</option>
+                        </select>
+                        <label for="department">选择所属题库</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <textarea id="content" class="materialize-textarea"
+                        ></textarea>
+                        <label for="content">题目内容</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        图片:<input type="file" id="image" name="image" class="file-path validate"/>
+                    </div>
+                    <br/><br/>
+                    <br/>
+
+                    <div class='input-field col s12'>
+                        <input name='choices' id='select' type='text' class='validate sel'/> <label for='select'>选项1：</label>
+                    </div>
+
+                    <div class='input-field col s12'>
+                        <input name='choices' id='select' type='text' class='validate sel'/> <label for='select'>选项2：</label>
+                    </div>
+
+                    <div class='input-field col s12'>
+                        <input name='choices' id='select' type='text' class='validate sel'/> <label for='select'>选项3：</label>
+                    </div>
+
+                    <div class='input-field col s12'>
+                        <input name='choices' id='select' type='text' class='validate sel'/> <label for='select'>选项4：</label>
+                    </div>
+
+                    <div class='input-field col s12'>
+                        <textarea id="result" class="materialize-textarea"></textarea>
+                        <label for='result'>答案：</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <textarea id="tip" class="materialize-textarea"
+                        ></textarea>
+                        <label for="tip">提示：</label>
+                    </div>
+                </div>
+                <!--<button type="button" class="waves-effect waves-light btn" id="addChoice">添加选项</button>-->
+                <button type="submit" class="waves-effect waves-light btn" id="submitQue">提交</button>
+            </form>
+        </div>
+        <div class="col s12 m4">
+            <form th:action="@{/search}" method="post">
+                <input placeholder="Search" id="first_name" name="question" type="text" class="validate"/>
+                <div class="col s12 m2">
+                    <button class="waves-effect waves-light btn" type="submit">搜索</button>
+                </div>
+            </form>
+            <form th:action="@{/delete}" method="post">
+                <table>
+                    <thead>
+                    <tr>
+                        <th data-field="id">ID</th>
+                        <th data-field="name">题目内容</th>
+                        <th data-field="result">答案</th>
+                        <th data-field="tip">提示</th>
+                        <th data-field="tip">选项</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--/*@thymesVar id="questions" type="java.util.List<com.nuptsast.model.Question>"*/-->
+                    <tr th:each="question : ${questions}">
+                        <td th:text="${question.id}"></td>
+                        <td th:text="${question.question}"></td>
+                        <td th:text="${question.result}"></td>
+                        <td th:text="${question.tip}"></td>
+                        <th th:each="choice : ${question.choices}" th:text="${choice.choice}"></th>
+                        <td>
+                            <button class="waves-effect waves-light btn" type="submit"
+                                    name="id" th:value="${question.id}">删除
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+
+    </div>
+</main>
+<footer th:replace="fragment :: footer"></footer>
+<script type="text/javascript" th:inline="javascript" th:src="@{/js/manage.js}"></script>
+</body>
+</html>
